@@ -7,7 +7,7 @@ def call(Map configMap) {
         }
         environment {
             appVersion = configMap.get('appVersion')
-            AWS_REGION = 'us-east-1'
+            REGION = 'us-east-1'
             PROJECT = configMap.get('project')
             COMPONENT = configMap.get('component')
             AWS_ACCOUNT_ID = '368903465982'
