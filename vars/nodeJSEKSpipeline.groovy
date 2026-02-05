@@ -119,11 +119,11 @@ def call(Map configMap) {
             steps {
                 script {
                     build job:  "../${COMPONENT}-deploy"
-                    wait: false,
-                    propagate: false,
-                    parameters: [
-                        string(name: 'appVersion', value: "${appVersion}"),
-                        string(name: 'deploy_to', choices: dev)
+                        wait: false,
+                        propagate: false,
+                        parameters: [
+                            string(name: 'appVersion', value: "${appVersion}"),
+                            string(name: 'deploy_to', choices: dev)
                     ]
                 }
             }
