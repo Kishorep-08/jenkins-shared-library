@@ -35,52 +35,52 @@ def call(Map configMap) {
             }
         }
 
-        stage ('Depandabot scan'){
-            environment {
-                GITHUB_API = 'https://api.github.com'
-                GITHUB_OWNER = 'Kishorep-08'
-                GITHUB_REPO = 'catalogue'
-                GITHUB_TOKEN = credentials('github-token')
-            }
-            steps {
-                script {
-                    // sh '''
-                    // echo "Fetching Dependabot alerts..."
+        // stage ('Depandabot scan'){
+        //     environment {
+        //         GITHUB_API = 'https://api.github.com'
+        //         GITHUB_OWNER = 'Kishorep-08'
+        //         GITHUB_REPO = 'catalogue'
+        //         GITHUB_TOKEN = credentials('github-token')
+        //     }
+        //     steps {
+        //         script {
+        //             // sh '''
+        //             // echo "Fetching Dependabot alerts..."
 
-                    // response=$(curl -s \
-                    //     -H "Authorization: token ${GITHUB_TOKEN}" \
-                    //     -H "Accept: application/vnd.github+json" \
-                    //     "${GITHUB_API}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/dependabot/alerts?per_page=100")
+        //             // response=$(curl -s \
+        //             //     -H "Authorization: token ${GITHUB_TOKEN}" \
+        //             //     -H "Accept: application/vnd.github+json" \
+        //             //     "${GITHUB_API}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/dependabot/alerts?per_page=100")
 
-                    // echo "${response}" > dependabot_alerts.json
+        //             // echo "${response}" > dependabot_alerts.json
 
-                    // high_critical_open_count=$(echo "${response}" | jq '[.[] 
-                    //     | select(
-                    //         .state == "open"
-                    //         and (.security_advisory.severity == "high"
-                    //             or .security_advisory.severity == "critical")
-                    //     )
-                    // ] | length')
+        //             // high_critical_open_count=$(echo "${response}" | jq '[.[] 
+        //             //     | select(
+        //             //         .state == "open"
+        //             //         and (.security_advisory.severity == "high"
+        //             //             or .security_advisory.severity == "critical")
+        //             //     )
+        //             // ] | length')
 
-                    // echo "Open HIGH/CRITICAL Dependabot alerts: ${high_critical_open_count}"
+        //             // echo "Open HIGH/CRITICAL Dependabot alerts: ${high_critical_open_count}"
 
-                    // if [ "${high_critical_open_count}" -gt 0 ]; then
-                    //     echo "❌ Blocking pipeline due to OPEN HIGH/CRITICAL Dependabot alerts"
-                    //     echo "Affected dependencies:"
-                    //     echo "$response" | jq '.[] 
-                    //     | select(.state=="open" 
-                    //     and (.security_advisory.severity=="high" 
-                    //     or .security_advisory.severity=="critical"))
-                    //     | {dependency: .dependency.package.name, severity: .security_advisory.severity, advisory: .security_advisory.summary}'
-                    //     exit 1
-                    // else
-                    //     echo "✅ No OPEN HIGH/CRITICAL Dependabot alerts found"
-                    // fi
-                    // '''
-                }
-            }
+        //             // if [ "${high_critical_open_count}" -gt 0 ]; then
+        //             //     echo "❌ Blocking pipeline due to OPEN HIGH/CRITICAL Dependabot alerts"
+        //             //     echo "Affected dependencies:"
+        //             //     echo "$response" | jq '.[] 
+        //             //     | select(.state=="open" 
+        //             //     and (.security_advisory.severity=="high" 
+        //             //     or .security_advisory.severity=="critical"))
+        //             //     | {dependency: .dependency.package.name, severity: .security_advisory.severity, advisory: .security_advisory.summary}'
+        //             //     exit 1
+        //             // else
+        //             //     echo "✅ No OPEN HIGH/CRITICAL Dependabot alerts found"
+        //             // fi
+        //             // '''
+        //         }
+        //     }
 
-        }
+        // }
 
 
         stage ('Build Docker image') {
@@ -99,21 +99,21 @@ def call(Map configMap) {
             }
         }
 
-        stage ('Trivy scan') {
-            steps {
-                script {
-                    // sh """
-                    //      trivy image \
-                    //      --scanners vuln \
-                    //      --severity HIGH,CRITICAL,MEDIUM \
-                    //      --pkg-types os \
-                    //      --exit-code 1 \
-                    //      --format table \
-                    //      ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
-                    // """ 
-                }
-            }
-        }
+        // stage ('Trivy scan') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                  trivy image \
+        //                  --scanners vuln \
+        //                  --severity HIGH,CRITICAL,MEDIUM \
+        //                  --pkg-types os \
+        //                  --exit-code 1 \
+        //                  --format table \
+        //                  ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+        //             """ 
+        //         }
+        //     }
+        // }
 
         stage ('Trigger Deploy Job') {
             steps {
