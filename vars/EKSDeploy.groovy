@@ -22,6 +22,7 @@ def call(Map configMap) {
                             sh """
                                 
                                 echo "Triggering Deploy Job ..."
+                                echo "Deploying application version ${appVersion} to ${deploy_to} environment..."
                                 aws eks update-kubeconfig --region ${REGION} --name ${PROJECT}-${deploy_to}
                                 kubectl get nodes
                                 echo "Deploying application version ${appVersion} to ${deploy_to} environment..."
