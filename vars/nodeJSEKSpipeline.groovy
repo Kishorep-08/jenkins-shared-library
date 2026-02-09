@@ -10,7 +10,7 @@ def call(Map configMap) {
         AWS_REGION = 'us-east-1'
         PROJECT = configMap.get('project')
         COMPONENT = configMap.get('component')
-        AWS_ACCOUNT_ID = '368903465982'
+        AWS_ACCOUNT_ID = '997416683845'
 
     }
     stages {
