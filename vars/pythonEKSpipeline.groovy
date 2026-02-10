@@ -26,7 +26,9 @@ def call(Map configMap) {
             steps {
                 script {
                     sh """
-                        pip3 install -r requirements.txt
+                        python3 -m venv venv
+                        . venv/bin/activate
+                        pip install -r requirements.txt
                     """
                 }
                     
